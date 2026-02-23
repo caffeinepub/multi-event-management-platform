@@ -1,2 +1,3 @@
-# multi-event-management-platform
-Exported from Caffeine project: Multi-Event Management Platform
+## Multi-Event Management Platform
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

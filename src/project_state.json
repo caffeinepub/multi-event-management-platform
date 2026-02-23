@@ -1,0 +1,201 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Multi-Event Management Platform for hosting and managing college events with role-based access (organizer/participant), team collaboration, event registration, notifications, and winner management",
+  "architectural_notes": [
+    "Frontend: React with Tailwind CSS",
+    "Backend: Node.js with Express",
+    "Database: MongoDB with collections for Users, Events, Teams, Registrations, Notifications",
+    "Authentication: JWT-based with role management (organizer/participant)",
+    "Notification services: Email and WhatsApp mock/integration (Twilio)",
+    "Mobile responsive design required",
+    "Cloud hosting deployment planned"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Hero banner image showing diverse college students collaborating at an event with laptops and teamwork, modern illustration style (hero-banner.dim_1200x400.png)\n- Icon for organizer role showing clipboard with checklist, flat design style in emerald green (icon-organizer.dim_128x128.png)\n- Icon for participant role showing people in a group, flat design style in warm orange (icon-participant.dim_128x128.png)\n- Empty state illustration for events dashboard showing calendar with sparkles, friendly illustration style (empty-events.dim_400x300.png)",
+  "existing_features": [
+    {
+      "id": "feature-implement-user-authentication-with-internet-identity-supporting-role-selection-during-signup-organizer-or-participant",
+      "title": "Implement user authentication with Internet Identity supporting role selection during signup (organizer or participant)",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-organizer-admin-panel-dashboard-with-event-creation-participant-tracking-and-winner-management",
+      "title": "Create organizer admin panel dashboard with event creation, participant tracking, and winner management",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-event-creation-and-management-system-supporting-title-description-date-time-venue-link-and-schedules",
+      "title": "Build event creation and management system supporting title, description, date/time, venue/link, and schedules",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-participant-dashboard-displaying-all-available-events-created-by-organizers",
+      "title": "Implement participant dashboard displaying all available events created by organizers",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-event-registration-system-allowing-participants-to-enroll-in-events",
+      "title": "Build event registration system allowing participants to enroll in events",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-team-creation-and-management-system-allowing-participants-to-create-teams-for-events",
+      "title": "Implement team creation and management system allowing participants to create teams for events",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-team-member-invitation-system-with-shareable-links-for-email-and-whatsapp",
+      "title": "Build team member invitation system with shareable links for email and WhatsApp",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-winner-declaration-system-allowing-organizers-to-mark-winning-teams-after-events-conclude",
+      "title": "Create winner declaration system allowing organizers to mark winning teams after events conclude",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-participant-tracking-and-analytics-dashboard-for-organizers-showing-registration-counts-team-formations-and-event-statistics",
+      "title": "Build participant tracking and analytics dashboard for organizers showing registration counts, team formations, and event statistics",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-export-reports-functionality-for-organizers-to-download-participant-and-event-data",
+      "title": "Add export reports functionality for organizers to download participant and event data",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-a-cohesive-visual-theme-with-a-professional-modern-academic-aesthetic-suitable-for-college-event-management-using-a-palette-of-emerald-green-and-warm-orange-accents-on-light-backgrounds-with-clean-typography-and-card-based-layouts",
+      "title": "Design a cohesive visual theme with a professional, modern academic aesthetic suitable for college event management using a palette of emerald green and warm orange accents on light backgrounds, with clean typography and card-based layouts",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "User authentication with role selection (organizer/participant)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Admin panel for organizers to create/edit/delete events",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Event management with schedules and venue/link information",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Participant dashboard to browse and view all events",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Event registration system for participants",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Team creation and management (create/join teams)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Team member invitation via email and WhatsApp",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Winner declaration system for admins to mark winning teams",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Participant tracking and analytics dashboard for admins",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Notification system (email/WhatsApp) for event updates",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Attendance tracking and check-in management",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Export reports functionality for admins",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Implement notification system for event updates and team invitations (email and WhatsApp mock interfaces)",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Develop attendance tracking and check-in management system for organizers",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Multi-Event Management Platform",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

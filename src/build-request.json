@@ -1,0 +1,295 @@
+{
+  "kind": "build_request",
+  "title": "Build Multi-Event Management Platform with role-based access, team collaboration, and winner management",
+  "projectName": "Campus EventHub",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Implement user authentication with Internet Identity supporting role selection during signup (organizer or participant)",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "people have to login or sign up and with the role like participant or orgainizer"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can sign up with Internet Identity",
+        "During registration, users select their role (organizer or participant)",
+        "Role is stored in user profile and persists across sessions",
+        "Authentication state is managed consistently across the application"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Create organizer admin panel dashboard with event creation, participant tracking, and winner management",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "if i login as a orgainizer then open admin panel whose create event in this dashboard make create event section and check how many participant are participate"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Organizers see an admin panel when logged in with organizer role",
+        "Dashboard displays event creation section",
+        "Dashboard shows participant count for each event",
+        "Interface includes winner declaration controls for completed events"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Build event creation and management system supporting title, description, date/time, venue/link, and schedules",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "Create/manage events",
+          "Add schedules and venues/links"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Organizers can create new events with all required fields",
+        "Events include title, description, date, time, venue or online link",
+        "Organizers can add multiple schedule entries per event",
+        "Organizers can edit and delete events they created",
+        "All event data is persisted in the backend"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement participant dashboard displaying all available events created by organizers",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "if i login as a participant then open participant dashboard this make show all event which is create by this admin"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Participants see a dashboard when logged in with participant role",
+        "Dashboard lists all active events",
+        "Each event shows key details (title, date, venue/link)",
+        "Participants can view full event details"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Build event registration system allowing participants to enroll in events",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "how to enroll",
+          "One‑click registration",
+          "Participants register"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Participants can register for events with a single action",
+        "Registration status is tracked in the backend",
+        "Participants cannot register multiple times for the same event",
+        "Registration confirmation is displayed to the user"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Implement team creation and management system allowing participants to create teams for events",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "Create or join team",
+          "Create/join teams",
+          "Teams are formed"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Participants can create a new team for an event they registered for",
+        "Teams have a name and are associated with a specific event",
+        "Team creator becomes the team leader",
+        "Team data is stored in the backend with member lists"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Build team member invitation system with shareable links for email and WhatsApp",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "event friends to enroll as a team member this feature make if i want share link through mail and also give whatsapp make this feature",
+          "Invite members"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Team leaders can generate a shareable invitation link for their team",
+        "System provides email sharing option with pre-filled subject and body",
+        "System provides WhatsApp sharing option with formatted invitation message",
+        "Invited users can join the team by clicking the link",
+        "Team membership updates are reflected in the backend"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Create winner declaration system allowing organizers to mark winning teams after events conclude",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "if event is over then how is winner team this winner system make like admin also create this like this team is winner"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Organizers can view all teams registered for a completed event",
+        "Organizers can select and mark one team as the winner",
+        "Winner status is stored in the backend",
+        "Winner announcement is displayed on the event page"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Build participant tracking and analytics dashboard for organizers showing registration counts, team formations, and event statistics",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "check how many participant are participate",
+          "View attendees list",
+          "Admin dashboards with analytics",
+          "Show dashboard analytics"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Dashboard displays total participant count per event",
+        "Dashboard shows number of teams formed per event",
+        "Organizers can view detailed attendee lists",
+        "Statistics update in real-time as registrations occur"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Implement notification system for event updates and team invitations (email and WhatsApp mock interfaces)",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "Notifications system (Email/WhatsApp mock)",
+          "Send reminders",
+          "Receive updates",
+          "Notifications delivered"
+        ]
+      },
+      "acceptanceCriteria": [
+        "System generates notification records for event updates",
+        "Participants can view their notifications in their dashboard",
+        "Notification includes email and WhatsApp mock sharing options",
+        "Organizers can send bulk reminders to event participants"
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "text": "Develop attendance tracking and check-in management system for organizers",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "Attendance tracking is time‑consuming",
+          "Check‑in management",
+          "Attendance tracked on dashboard"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Organizers can mark participants as checked-in for their events",
+        "Attendance status is stored per participant per event",
+        "Dashboard shows attendance count vs total registrations",
+        "Organizers can view list of checked-in and absent participants"
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "text": "Add export reports functionality for organizers to download participant and event data",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "Export reports",
+          "Dashboard & reports"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Organizers can export participant lists as CSV or similar format",
+        "Export includes participant names, teams, and registration status",
+        "Reports can be generated per event",
+        "Export functionality is accessible from the admin dashboard"
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "text": "Design a cohesive visual theme with a professional, modern academic aesthetic suitable for college event management using a palette of emerald green and warm orange accents on light backgrounds, with clean typography and card-based layouts",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Color scheme uses emerald green (#10B981 or similar) and warm orange (#F97316 or similar) consistently",
+        "Typography is clean and readable with proper hierarchy",
+        "Card-based layouts organize content logically",
+        "Design feels professional and suitable for educational institutions",
+        "Visual style is applied consistently across all pages and components"
+      ]
+    }
+  ],
+  "constraints": [
+    "Use Internet Identity for authentication instead of JWT",
+    "Backend must be implemented in Motoko, not Node.js/Express",
+    "All data must be stored in the Motoko actor's stable storage, not MongoDB",
+    "Real-time WebSocket features are not supported; use polling or periodic refresh patterns",
+    "SMS/WhatsApp integration via Twilio is not supported; provide mock sharing interfaces with pre-filled links"
+  ],
+  "nonGoals": [
+    "QR code check-in system",
+    "Payment gateway integration",
+    "Live leaderboard with real-time updates",
+    "Mobile native app development",
+    "AI-based analytics",
+    "Actual email sending via SendGrid or SMTP",
+    "Actual WhatsApp message sending via Twilio"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Hero banner image showing diverse college students collaborating at an event with laptops and teamwork, modern illustration style (hero-banner.dim_1200x400.png)",
+      "Icon for organizer role showing clipboard with checklist, flat design style in emerald green (icon-organizer.dim_128x128.png)",
+      "Icon for participant role showing people in a group, flat design style in warm orange (icon-participant.dim_128x128.png)",
+      "Empty state illustration for events dashboard showing calendar with sparkles, friendly illustration style (empty-events.dim_400x300.png)"
+    ],
+    "edits": []
+  }
+}

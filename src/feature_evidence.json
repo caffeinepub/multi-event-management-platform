@@ -1,0 +1,223 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-user-authentication-with-internet-identity-supporting-role-selection-during-signup-organizer-or-participant",
+      "featureTitle": "Implement user authentication with Internet Identity supporting role selection during signup (organizer or participant)",
+      "files": [
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-organizer-admin-panel-dashboard-with-event-creation-participant-tracking-and-winner-management",
+      "featureTitle": "Create organizer admin panel dashboard with event creation, participant tracking, and winner management",
+      "files": [
+        "frontend/src/components/organizer/EventListTable.tsx",
+        "frontend/src/components/organizer/WinnerDeclarationDialog.tsx",
+        "frontend/src/pages/OrganizerDashboard.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-event-creation-and-management-system-supporting-title-description-date-time-venue-link-and-schedules",
+      "featureTitle": "Build event creation and management system supporting title, description, date/time, venue/link, and schedules",
+      "files": [
+        "frontend/src/components/organizer/CreateEventForm.tsx",
+        "frontend/src/components/organizer/EditEventDialog.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-participant-dashboard-displaying-all-available-events-created-by-organizers",
+      "featureTitle": "Implement participant dashboard displaying all available events created by organizers",
+      "files": [
+        "frontend/src/components/participant/EventGrid.tsx",
+        "frontend/src/pages/ParticipantDashboard.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-event-registration-system-allowing-participants-to-enroll-in-events",
+      "featureTitle": "Build event registration system allowing participants to enroll in events",
+      "files": [
+        "frontend/src/pages/EventDetailsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-team-creation-and-management-system-allowing-participants-to-create-teams-for-events",
+      "featureTitle": "Implement team creation and management system allowing participants to create teams for events",
+      "files": [
+        "frontend/src/components/participant/CreateTeamDialog.tsx",
+        "frontend/src/components/participant/TeamCard.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-team-member-invitation-system-with-shareable-links-for-email-and-whatsapp",
+      "featureTitle": "Build team member invitation system with shareable links for email and WhatsApp",
+      "files": [
+        "frontend/src/components/participant/InviteLinkDialog.tsx",
+        "frontend/src/pages/JoinTeamPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-winner-declaration-system-allowing-organizers-to-mark-winning-teams-after-events-conclude",
+      "featureTitle": "Create winner declaration system allowing organizers to mark winning teams after events conclude",
+      "files": [
+        "frontend/src/components/participant/WinnerBanner.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-participant-tracking-and-analytics-dashboard-for-organizers-showing-registration-counts-team-formations-and-event-statistics",
+      "featureTitle": "Build participant tracking and analytics dashboard for organizers showing registration counts, team formations, and event statistics",
+      "files": [
+        "frontend/src/components/organizer/AttendeeListDialog.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-export-reports-functionality-for-organizers-to-download-participant-and-event-data",
+      "featureTitle": "Add export reports functionality for organizers to download participant and event data",
+      "files": [
+        "frontend/src/components/organizer/ExportReportButton.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-design-a-cohesive-visual-theme-with-a-professional-modern-academic-aesthetic-suitable-for-college-event-management-using-a-palette-of-emerald-green-and-warm-orange-accents-on-light-backgrounds-with-clean-typography-and-card-based-layouts",
+      "featureTitle": "Design a cohesive visual theme with a professional, modern academic aesthetic suitable for college event management using a palette of emerald green and warm orange accents on light backgrounds, with clean typography and card-based layouts",
+      "files": [
+        "frontend/src/components/layout/AppLayout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

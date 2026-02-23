@@ -1,0 +1,376 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Campus EventHub - Multi-Event Management Platform Frontend",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Implement user authentication with Internet Identity and role selection during signup",
+      "acceptanceCriteria": [
+        "Users can sign up with Internet Identity",
+        "During registration, users select their role (organizer or participant)",
+        "Role is stored in user profile and persists across sessions",
+        "Authentication state is managed consistently across the application"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Create login/logout button component using the authorization component's Internet Identity integration. Handle authentication state transitions and clear query cache on logout. Use the authorization component to support authentication flows."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Create modal for first-time user profile setup. Display after login when getCallerUserProfile returns null. Collect user name, email, and role selection (organizer or participant) using radio buttons with icons from frontend/public/assets/generated/icon-organizer.dim_128x128.png and frontend/public/assets/generated/icon-participant.dim_128x128.png. Call saveCallerUserProfile with selected role. Verify the authorization component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useUserProfile.ts",
+          "operation": "create",
+          "description": "Create hook wrapping getCallerUserProfile with proper loading state management to prevent modal flash. Follow authorization component pattern for handling actor dependency and return isFetched flag. Include mutation hook for saveCallerUserProfile."
+        },
+        {
+          "path": "frontend/src/components/ProtectedRoute.tsx",
+          "operation": "create",
+          "description": "Create route wrapper component that checks authentication status and user profile setup completion. Redirect unauthenticated users to login. Show ProfileSetupModal when authenticated but profile is null. Use the authorization component to verify authentication state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Create organizer admin panel dashboard with event creation, participant tracking, and winner management",
+      "acceptanceCriteria": [
+        "Organizers see an admin panel when logged in with organizer role",
+        "Dashboard displays event creation section",
+        "Dashboard shows participant count for each event",
+        "Interface includes winner declaration controls for completed events"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/OrganizerDashboard.tsx",
+          "operation": "create",
+          "description": "Create organizer dashboard page restricted to organizer role. Display summary cards for total events created, total participants, and active events. Include tabs for event list view and create event form. Show participant count per event and winner declaration button for completed events. Use the authorization component to guard access and verify organizer role."
+        },
+        {
+          "path": "frontend/src/components/organizer/EventListTable.tsx",
+          "operation": "create",
+          "description": "Create table component displaying organizer's events from getMyEvents. Show columns for event title, date, venue, participant count from getEventStatistics, and action buttons (edit, delete, declare winner). Include empty state using frontend/public/assets/generated/empty-events.dim_400x300.png."
+        },
+        {
+          "path": "frontend/src/components/organizer/WinnerDeclarationDialog.tsx",
+          "operation": "create",
+          "description": "Create dialog for declaring event winner. Fetch teams using getEventTeams, display team list with member counts, and allow organizer to select winning team. Call declareWinner backend capability on confirmation."
+        },
+        {
+          "path": "frontend/src/hooks/useOrganizerEvents.ts",
+          "operation": "create",
+          "description": "Create hook wrapping getMyEvents query and related mutations (createEvent, updateEvent, deleteEvent, declareWinner) with proper cache invalidation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build event creation and management system supporting title, description, date/time, venue/link, and schedules",
+      "acceptanceCriteria": [
+        "Organizers can create new events with all required fields",
+        "Events include title, description, date, time, venue or online link",
+        "Organizers can add multiple schedule entries per event",
+        "Organizers can edit and delete events they created",
+        "All event data is persisted in the backend"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/organizer/CreateEventForm.tsx",
+          "operation": "create",
+          "description": "Create form for event creation with fields for title, description, date/time picker, and venue/link input. Use controlled form state and validation. Call createEvent backend capability on submit. Reset form and show success notification on completion."
+        },
+        {
+          "path": "frontend/src/components/organizer/EditEventDialog.tsx",
+          "operation": "create",
+          "description": "Create dialog for editing existing events. Pre-populate form with event data from getEvent. Use same field structure as CreateEventForm. Call updateEvent backend capability on save."
+        },
+        {
+          "path": "frontend/src/components/common/EventCard.tsx",
+          "operation": "create",
+          "description": "Create reusable event card component displaying event title, description snippet, date/time, venue, and participant count. Accept onClick handler for navigation. Use card-based layout with emerald green and warm orange accent colors per design requirement."
+        },
+        {
+          "path": "frontend/src/hooks/useEventOperations.ts",
+          "operation": "create",
+          "description": "Create hook providing mutations for createEvent, updateEvent, and deleteEvent with optimistic updates and error handling. Invalidate relevant queries on success."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement participant dashboard displaying all available events created by organizers",
+      "acceptanceCriteria": [
+        "Participants see a dashboard when logged in with participant role",
+        "Dashboard lists all active events",
+        "Each event shows key details (title, date, venue/link)",
+        "Participants can view full event details"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ParticipantDashboard.tsx",
+          "operation": "create",
+          "description": "Create participant dashboard page restricted to participant role. Display grid of event cards from getAllEvents. Show filter controls for upcoming/past events. Include hero section using frontend/public/assets/generated/hero-banner.dim_1200x400.png. Use the authorization component to guard access and verify participant role."
+        },
+        {
+          "path": "frontend/src/components/participant/EventGrid.tsx",
+          "operation": "create",
+          "description": "Create responsive grid layout component for displaying event cards. Map through events array and render EventCard components. Handle empty state with frontend/public/assets/generated/empty-events.dim_400x300.png."
+        },
+        {
+          "path": "frontend/src/hooks/useAllEvents.ts",
+          "operation": "create",
+          "description": "Create hook wrapping getAllEvents query with polling interval for periodic refresh (since real-time WebSocket is not supported). Include filtering logic for event status."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Build event registration system allowing participants to enroll in events",
+      "acceptanceCriteria": [
+        "Participants can register for events with a single action",
+        "Registration status is tracked in the backend",
+        "Participants cannot register multiple times for the same event",
+        "Registration confirmation is displayed to the user"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/EventDetailsPage.tsx",
+          "operation": "create",
+          "description": "Create event details page showing full event information from getEvent. Display registration button that calls registerForEvent backend capability. Show registration status and disable button if already registered. Display winning team announcement if winningTeam is set."
+        },
+        {
+          "path": "frontend/src/components/participant/RegistrationButton.tsx",
+          "operation": "create",
+          "description": "Create registration button component that checks if current user is already registered using event.registeredParticipants array. Call registerForEvent on click. Show loading state during registration and success notification on completion."
+        },
+        {
+          "path": "frontend/src/hooks/useEventRegistration.ts",
+          "operation": "create",
+          "description": "Create hook providing registerForEvent and unregisterFromEvent mutations. Check registration status by comparing current principal with event.registeredParticipants array. Invalidate event queries on success."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Implement team creation and management system allowing participants to create teams for events",
+      "acceptanceCriteria": [
+        "Participants can create a new team for an event they registered for",
+        "Teams have a name and are associated with a specific event",
+        "Team creator becomes the team leader",
+        "Team data is stored in the backend with member lists"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/participant/MyTeamsSection.tsx",
+          "operation": "create",
+          "description": "Create section component displaying teams user is member of. Fetch user's teams by filtering getEventTeams results where current principal is in members array. Show team cards with member count and event association."
+        },
+        {
+          "path": "frontend/src/components/participant/CreateTeamDialog.tsx",
+          "operation": "create",
+          "description": "Create dialog for team creation. Show event selector (only events user is registered for), team name input field. Call createTeam backend capability with eventId and teamName. Display success message with invitation link after creation."
+        },
+        {
+          "path": "frontend/src/components/participant/TeamCard.tsx",
+          "operation": "create",
+          "description": "Create team card component showing team name, member count, event title, and action buttons. Show invite button for team creator and leave button for members. Indicate team creator with badge."
+        },
+        {
+          "path": "frontend/src/hooks/useTeamOperations.ts",
+          "operation": "create",
+          "description": "Create hook providing createTeam, joinTeam, and leaveTeam mutations. Include query for fetching teams by event using getEventTeams. Handle team membership checks by comparing current principal with team.creator and team.members."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Build team member invitation system with shareable links for email and WhatsApp",
+      "acceptanceCriteria": [
+        "Team leaders can generate a shareable invitation link for their team",
+        "System provides email sharing option with pre-filled subject and body",
+        "System provides WhatsApp sharing option with formatted invitation message",
+        "Invited users can join the team by clicking the link",
+        "Team membership updates are reflected in the backend"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/participant/InviteLinkDialog.tsx",
+          "operation": "create",
+          "description": "Create dialog displaying team.inviteLink with copy-to-clipboard button. Provide email share button opening mailto link with pre-filled subject and body containing invite link. Provide WhatsApp share button opening WhatsApp web link with formatted invitation message. Show QR code representation of invite link (optional visual enhancement)."
+        },
+        {
+          "path": "frontend/src/pages/JoinTeamPage.tsx",
+          "operation": "create",
+          "description": "Create page handling team invitation links with teamId URL parameter. Fetch team details using getTeam. Display team information and join confirmation. Call joinTeam backend capability on user confirmation. Redirect to participant dashboard on success."
+        },
+        {
+          "path": "frontend/src/utils/shareHelpers.ts",
+          "operation": "create",
+          "description": "Create utility functions for generating email mailto links and WhatsApp share URLs with pre-filled invitation messages. Include copyToClipboard helper function."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Create winner declaration system allowing organizers to mark winning teams after events conclude",
+      "acceptanceCriteria": [
+        "Organizers can view all teams registered for a completed event",
+        "Organizers can select and mark one team as the winner",
+        "Winner status is stored in the backend",
+        "Winner announcement is displayed on the event page"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/participant/WinnerBanner.tsx",
+          "operation": "create",
+          "description": "Create banner component displaying winning team announcement. Show team name from event.winningTeam. Display confetti animation or celebration styling. Render only when event.winningTeam is set."
+        },
+        {
+          "path": "frontend/src/components/organizer/EventWinnerSection.tsx",
+          "operation": "create",
+          "description": "Create section in EventDetailsPage for organizers showing winner status. If winner is declared, display winning team with edit button. If no winner, show declare winner button opening WinnerDeclarationDialog. Visible only to event organizer."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Build participant tracking and analytics dashboard for organizers showing registration counts, team formations, and event statistics",
+      "acceptanceCriteria": [
+        "Dashboard displays total participant count per event",
+        "Dashboard shows number of teams formed per event",
+        "Organizers can view detailed attendee lists",
+        "Statistics update in real-time as registrations occur"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/organizer/EventStatisticsCard.tsx",
+          "operation": "create",
+          "description": "Create statistics card component fetching data from getEventStatistics. Display registration count, team count, and check-in count as metric cards. Use chart visualization for trends (optional enhancement)."
+        },
+        {
+          "path": "frontend/src/components/organizer/AttendeeListDialog.tsx",
+          "operation": "create",
+          "description": "Create dialog showing detailed attendee list from getEventRegistrations. Display participant principals with names fetched via getUserProfile. Show check-in status by cross-referencing with getCheckedInParticipants. Include export button for report generation."
+        },
+        {
+          "path": "frontend/src/hooks/useEventStatistics.ts",
+          "operation": "create",
+          "description": "Create hook wrapping getEventStatistics query with periodic refresh. Calculate additional metrics like attendance rate (checkInCount / registrationCount)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Implement notification system for event updates and team invitations (email and WhatsApp mock interfaces)",
+      "acceptanceCriteria": [
+        "System generates notification records for event updates",
+        "Participants can view their notifications in their dashboard",
+        "Notification includes email and WhatsApp mock sharing options",
+        "Organizers can send bulk reminders to event participants"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/common/NotificationCenter.tsx",
+          "operation": "create",
+          "description": "Create notification dropdown component displaying notification list. Include bell icon with unread count badge. Show notification items with timestamp and action links. Implement local notification state management (notifications are UI-only mock since backend doesn't store them)."
+        },
+        {
+          "path": "frontend/src/components/organizer/SendReminderDialog.tsx",
+          "operation": "create",
+          "description": "Create dialog for organizers to compose event reminder. Fetch participant list from getEventRegistrations. Provide message input and preview. Generate email/WhatsApp share links for bulk distribution. Show mock 'sent' confirmation."
+        },
+        {
+          "path": "frontend/src/hooks/useNotifications.ts",
+          "operation": "create",
+          "description": "Create hook managing client-side notification state. Generate mock notifications for significant events (registration confirmed, team invitation received). Provide markAsRead function. Store in localStorage for persistence across sessions."
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Develop attendance tracking and check-in management system for organizers",
+      "acceptanceCriteria": [
+        "Organizers can mark participants as checked-in for their events",
+        "Attendance status is stored per participant per event",
+        "Dashboard shows attendance count vs total registrations",
+        "Organizers can view list of checked-in and absent participants"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/organizer/CheckInManagement.tsx",
+          "operation": "create",
+          "description": "Create check-in management component for organizers. Display list of registered participants from getEventRegistrations. Show check-in status indicator for each participant using getCheckedInParticipants. Provide check-in button calling checkIn backend capability with participant principal."
+        },
+        {
+          "path": "frontend/src/components/participant/CheckInButton.tsx",
+          "operation": "create",
+          "description": "Create self-check-in button component for participants on EventDetailsPage. Call checkIn backend capability with current event ID. Show success confirmation and update check-in status display."
+        },
+        {
+          "path": "frontend/src/hooks/useAttendanceTracking.ts",
+          "operation": "create",
+          "description": "Create hook wrapping checkIn mutation and getCheckedInParticipants query. Provide helper function to check if current user is checked in for an event. Invalidate event statistics on check-in."
+        }
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "summary": "Add export reports functionality for organizers to download participant and event data",
+      "acceptanceCriteria": [
+        "Organizers can export participant lists as CSV or similar format",
+        "Export includes participant names, teams, and registration status",
+        "Reports can be generated per event",
+        "Export functionality is accessible from the admin dashboard"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/organizer/ExportReportButton.tsx",
+          "operation": "create",
+          "description": "Create export button component that generates CSV report for an event. Fetch event data, registrations from getEventRegistrations, teams from getEventTeams, and attendance from getCheckedInParticipants. Format as CSV with columns: name, email, team, registration date, check-in status. Trigger browser download."
+        },
+        {
+          "path": "frontend/src/utils/csvExport.ts",
+          "operation": "create",
+          "description": "Create utility functions for CSV generation and file download. Provide functions to convert event and participant data to CSV format with proper escaping and encoding. Include downloadBlob helper for triggering browser downloads."
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Design a cohesive visual theme with professional, modern academic aesthetic using emerald green and warm orange accents",
+      "acceptanceCriteria": [
+        "Color scheme uses emerald green (#10B981 or similar) and warm orange (#F97316 or similar) consistently",
+        "Typography is clean and readable with proper hierarchy",
+        "Card-based layouts organize content logically",
+        "Design feels professional and suitable for educational institutions",
+        "Visual style is applied consistently across all pages and components"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define global CSS custom properties for emerald green primary color (#10B981), warm orange accent color (#F97316), and semantic color tokens. Add base typography styles with clean font stack. Define card shadow and border radius tokens for card-based layouts."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme with custom color palette (primary: emerald-500, accent: orange-500) and educational institution-appropriate font families. Configure custom spacing and border radius values for consistent card layouts."
+        },
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "create",
+          "description": "Create main layout component with navigation header, role-based menu items, and content area. Use emerald green header with warm orange accent highlights. Include NotificationCenter and LoginButton in header. Apply consistent padding and card-based content containers."
+        },
+        {
+          "path": "frontend/src/components/layout/HeroSection.tsx",
+          "operation": "create",
+          "description": "Create hero section component for landing/dashboard pages displaying frontend/public/assets/generated/hero-banner.dim_1200x400.png. Include tagline and call-to-action using brand colors. Use professional typography hierarchy with large heading and supporting text."
+        }
+      ]
+    }
+  ]
+}
