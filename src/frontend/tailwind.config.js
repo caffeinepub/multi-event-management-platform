@@ -66,17 +66,13 @@ export default {
             },
             fontFamily: {
                 sans: [
-                    'Inter',
+                    'Outfit',
                     'system-ui',
                     '-apple-system',
-                    'BlinkMacSystemFont',
-                    'Segoe UI',
-                    'Roboto',
                     'sans-serif'
                 ],
                 heading: [
-                    'Poppins',
-                    'Inter',
+                    'Bricolage Grotesque',
                     'system-ui',
                     'sans-serif'
                 ]

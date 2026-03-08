@@ -1,21 +1,29 @@
-import { useParams, useNavigate } from '@tanstack/react-router';
-import { useGetEvent, useGetEventTeams, useGetEventStatistics, useGetCallerUserProfile, useRegisterForEvent, useUnregisterFromEvent, useCheckIn } from '../hooks/useQueries';
-import { useInternetIdentity } from '../hooks/useInternetIdentity';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, Users, Trophy, ArrowLeft } from 'lucide-react';
-import { UserRole } from '../backend';
-import WinnerBanner from '../components/participant/WinnerBanner';
-import CreateTeamDialog from '../components/participant/CreateTeamDialog';
-import TeamCard from '../components/participant/TeamCard';
-import WinnerDeclarationDialog from '../components/organizer/WinnerDeclarationDialog';
-import AttendeeListDialog from '../components/organizer/AttendeeListDialog';
-import EditEventDialog from '../components/organizer/EditEventDialog';
-import ExportReportButton from '../components/organizer/ExportReportButton';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useNavigate, useParams } from "@tanstack/react-router";
+import { ArrowLeft, Calendar, MapPin, Trophy, Users } from "lucide-react";
+import { UserRole } from "../backend";
+import AttendeeListDialog from "../components/organizer/AttendeeListDialog";
+import EditEventDialog from "../components/organizer/EditEventDialog";
+import ExportReportButton from "../components/organizer/ExportReportButton";
+import WinnerDeclarationDialog from "../components/organizer/WinnerDeclarationDialog";
+import CreateTeamDialog from "../components/participant/CreateTeamDialog";
+import TeamCard from "../components/participant/TeamCard";
+import WinnerBanner from "../components/participant/WinnerBanner";
+import { useInternetIdentity } from "../hooks/useInternetIdentity";
+import {
+  useCheckIn,
+  useGetCallerUserProfile,
+  useGetEvent,
+  useGetEventStatistics,
+  useGetEventTeams,
+  useRegisterForEvent,
+  useUnregisterFromEvent,
+} from "../hooks/useQueries";
 
 export default function EventDetailsPage() {
-  const { eventId } = useParams({ from: '/event/$eventId' });
+  const { eventId } = useParams({ from: "/event/$eventId" });
   const navigate = useNavigate();
   const { identity } = useInternetIdentity();
   const { data: event, isLoading } = useGetEvent(eventId);
@@ -42,10 +50,22 @@ export default function EventDetailsPage() {
     );
   }
 
-  const isOrganizer = userProfile?.role === UserRole.organizer && event.organizer.toString() === identity?.getPrincipal().toString();
+  const isOrganizer =
+    userProfile?.role === UserRole.organizer &&
+    event.organizer.toString() === identity?.getPrincipal().toString();
   const isParticipant = userProfile?.role === UserRole.participant;
-  const isRegistered = identity && event.registeredParticipants.some(p => p.toString() === identity.getPrincipal().toString());
-  const userTeams = teams.filter(t => identity && t.members.some(m => m.toString() === identity.getPrincipal().toString()));
+  const isRegistered =
+    identity &&
+    event.registeredParticipants.some(
+      (p) => p.toString() === identity.getPrincipal().toString(),
+    );
+  const userTeams = teams.filter(
+    (t) =>
+      identity &&
+      t.members.some(
+        (m) => m.toString() === identity.getPrincipal().toString(),
+      ),
+  );
 
   const handleRegister = () => {
     registerMutation.mutate(eventId);
@@ -94,7 +114,9 @@ export default function EventDetailsPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground whitespace-pre-wrap">{event.description}</p>
+              <p className="text-muted-foreground whitespace-pre-wrap">
+                {event.description}
+              </p>
             </CardContent>
           </Card>
 
@@ -106,12 +128,14 @@ export default function EventDetailsPage() {
               <CardContent>
                 {userTeams.length === 0 ? (
                   <div className="text-center py-8">
-                    <p className="text-muted-foreground mb-4">You haven't joined any team yet</p>
+                    <p className="text-muted-foreground mb-4">
+                      You haven't joined any team yet
+                    </p>
                     <CreateTeamDialog eventId={eventId} />
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {userTeams.map(team => (
+                    {userTeams.map((team) => (
                       <TeamCard key={team.id} team={team} event={event} />
                     ))}
                     <CreateTeamDialog eventId={eventId} />
@@ -146,17 +170,29 @@ export default function EventDetailsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Registrations</span>
-                <span className="font-semibold">{statistics ? Number(statistics.registrationCount) : 0}</span>
+                <span className="text-sm text-muted-foreground">
+                  Registrations
+                </span>
+                <span className="font-semibold">
+                  {statistics ? Number(statistics.registrationCount) : 0}
+                </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Teams Formed</span>
-                <span className="font-semibold">{statistics ? Number(statistics.teamCount) : 0}</span>
+                <span className="text-sm text-muted-foreground">
+                  Teams Formed
+                </span>
+                <span className="font-semibold">
+                  {statistics ? Number(statistics.teamCount) : 0}
+                </span>
               </div>
               {isOrganizer && (
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Check-ins</span>
-                  <span className="font-semibold">{statistics ? Number(statistics.checkInCount) : 0}</span>
+                  <span className="text-sm text-muted-foreground">
+                    Check-ins
+                  </span>
+                  <span className="font-semibold">
+                    {statistics ? Number(statistics.checkInCount) : 0}
+                  </span>
                 </div>
               )}
             </CardContent>
@@ -174,7 +210,9 @@ export default function EventDetailsPage() {
                     disabled={registerMutation.isPending}
                     className="w-full"
                   >
-                    {registerMutation.isPending ? 'Registering...' : 'Register for Event'}
+                    {registerMutation.isPending
+                      ? "Registering..."
+                      : "Register for Event"}
                   </Button>
                 ) : (
                   <>
@@ -184,7 +222,9 @@ export default function EventDetailsPage() {
                       className="w-full"
                       variant="default"
                     >
-                      {checkInMutation.isPending ? 'Checking in...' : 'Check In'}
+                      {checkInMutation.isPending
+                        ? "Checking in..."
+                        : "Check In"}
                     </Button>
                     <Button
                       onClick={handleUnregister}
@@ -192,7 +232,9 @@ export default function EventDetailsPage() {
                       className="w-full"
                       variant="outline"
                     >
-                      {unregisterMutation.isPending ? 'Unregistering...' : 'Unregister'}
+                      {unregisterMutation.isPending
+                        ? "Unregistering..."
+                        : "Unregister"}
                     </Button>
                   </>
                 )}
@@ -210,11 +252,12 @@ export default function EventDetailsPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {teams.map(team => (
+                  {teams.map((team) => (
                     <div key={team.id} className="p-3 border rounded-lg">
                       <div className="font-semibold">{team.name}</div>
                       <div className="text-sm text-muted-foreground">
-                        {team.members.length} member{team.members.length !== 1 ? 's' : ''}
+                        {team.members.length} member
+                        {team.members.length !== 1 ? "s" : ""}
                       </div>
                     </div>
                   ))}

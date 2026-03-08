@@ -1,20 +1,26 @@
-import { useState } from 'react';
-import { useCreateTeam } from '../../hooks/useQueries';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Plus } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Plus } from "lucide-react";
+import { useState } from "react";
+import { useCreateTeam } from "../../hooks/useQueries";
 
 export default function CreateTeamDialog({ eventId }: { eventId: string }) {
   const [open, setOpen] = useState(false);
-  const [teamName, setTeamName] = useState('');
+  const [teamName, setTeamName] = useState("");
   const createMutation = useCreateTeam();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await createMutation.mutateAsync({ eventId, teamName });
-    setTeamName('');
+    setTeamName("");
     setOpen(false);
   };
 
@@ -42,11 +48,15 @@ export default function CreateTeamDialog({ eventId }: { eventId: string }) {
             />
           </div>
           <div className="flex justify-end gap-2">
-            <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setOpen(false)}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={createMutation.isPending}>
-              {createMutation.isPending ? 'Creating...' : 'Create Team'}
+              {createMutation.isPending ? "Creating..." : "Create Team"}
             </Button>
           </div>
         </form>

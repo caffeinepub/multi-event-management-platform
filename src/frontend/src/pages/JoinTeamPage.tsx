@@ -1,12 +1,12 @@
-import { useParams, useNavigate } from '@tanstack/react-router';
-import { useGetTeam, useGetEvent, useJoinTeam } from '../hooks/useQueries';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Users, Calendar } from 'lucide-react';
-import { useInternetIdentity } from '../hooks/useInternetIdentity';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useNavigate, useParams } from "@tanstack/react-router";
+import { Calendar, Users } from "lucide-react";
+import { useInternetIdentity } from "../hooks/useInternetIdentity";
+import { useGetEvent, useGetTeam, useJoinTeam } from "../hooks/useQueries";
 
 export default function JoinTeamPage() {
-  const { teamId } = useParams({ from: '/join-team/$teamId' });
+  const { teamId } = useParams({ from: "/join-team/$teamId" });
   const navigate = useNavigate();
   const { identity } = useInternetIdentity();
   const { data: team, isLoading: teamLoading } = useGetTeam(teamId);
@@ -29,7 +29,11 @@ export default function JoinTeamPage() {
     );
   }
 
-  const isAlreadyMember = identity && team.members.some(m => m.toString() === identity.getPrincipal().toString());
+  const isAlreadyMember =
+    identity &&
+    team.members.some(
+      (m) => m.toString() === identity.getPrincipal().toString(),
+    );
 
   const handleJoin = async () => {
     await joinMutation.mutateAsync(teamId);
@@ -66,20 +70,29 @@ export default function JoinTeamPage() {
                 <Users className="w-4 h-4 text-muted-foreground" />
                 <span className="font-semibold">Team Members</span>
               </div>
-              <p>{team.members.length} member{team.members.length !== 1 ? 's' : ''}</p>
+              <p>
+                {team.members.length} member
+                {team.members.length !== 1 ? "s" : ""}
+              </p>
             </div>
 
             {!identity ? (
               <div className="text-center py-4">
-                <p className="text-muted-foreground mb-4">Please login to join this team</p>
-                <Button onClick={() => navigate({ to: '/' })}>
+                <p className="text-muted-foreground mb-4">
+                  Please login to join this team
+                </p>
+                <Button onClick={() => navigate({ to: "/" })}>
                   Go to Login
                 </Button>
               </div>
             ) : isAlreadyMember ? (
               <div className="text-center py-4">
-                <p className="text-muted-foreground mb-4">You are already a member of this team</p>
-                <Button onClick={() => navigate({ to: `/event/${team.eventId}` })}>
+                <p className="text-muted-foreground mb-4">
+                  You are already a member of this team
+                </p>
+                <Button
+                  onClick={() => navigate({ to: `/event/${team.eventId}` })}
+                >
                   View Event
                 </Button>
               </div>
@@ -90,7 +103,7 @@ export default function JoinTeamPage() {
                 className="w-full"
                 size="lg"
               >
-                {joinMutation.isPending ? 'Joining...' : 'Join Team'}
+                {joinMutation.isPending ? "Joining..." : "Join Team"}
               </Button>
             )}
           </CardContent>

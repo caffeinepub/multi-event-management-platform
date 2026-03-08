@@ -1,22 +1,33 @@
-import { RouterProvider, createRouter, createRoute, createRootRoute, Outlet } from '@tanstack/react-router';
-import { useInternetIdentity } from './hooks/useInternetIdentity';
-import { useGetCallerUserProfile } from './hooks/useQueries';
-import AppLayout from './components/layout/AppLayout';
-import ProfileSetupModal from './components/auth/ProfileSetupModal';
-import OrganizerDashboard from './pages/OrganizerDashboard';
-import ParticipantDashboard from './pages/ParticipantDashboard';
-import EventDetailsPage from './pages/EventDetailsPage';
-import JoinTeamPage from './pages/JoinTeamPage';
-import LandingPage from './pages/LandingPage';
-import { Toaster } from '@/components/ui/sonner';
-import { ThemeProvider } from 'next-themes';
+import { Toaster } from "@/components/ui/sonner";
+import {
+  Outlet,
+  RouterProvider,
+  createRootRoute,
+  createRoute,
+  createRouter,
+} from "@tanstack/react-router";
+import { ThemeProvider } from "next-themes";
+import ProfileSetupModal from "./components/auth/ProfileSetupModal";
+import AppLayout from "./components/layout/AppLayout";
+import { useInternetIdentity } from "./hooks/useInternetIdentity";
+import { useGetCallerUserProfile } from "./hooks/useQueries";
+import EventDetailsPage from "./pages/EventDetailsPage";
+import JoinTeamPage from "./pages/JoinTeamPage";
+import LandingPage from "./pages/LandingPage";
+import OrganizerDashboard from "./pages/OrganizerDashboard";
+import ParticipantDashboard from "./pages/ParticipantDashboard";
 
 function RootComponent() {
   const { identity } = useInternetIdentity();
-  const { data: userProfile, isLoading: profileLoading, isFetched } = useGetCallerUserProfile();
-  
+  const {
+    data: userProfile,
+    isLoading: profileLoading,
+    isFetched,
+  } = useGetCallerUserProfile();
+
   const isAuthenticated = !!identity;
-  const showProfileSetup = isAuthenticated && !profileLoading && isFetched && userProfile === null;
+  const showProfileSetup =
+    isAuthenticated && !profileLoading && isFetched && userProfile === null;
 
   return (
     <>
@@ -35,31 +46,31 @@ const rootRoute = createRootRoute({
 
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/',
+  path: "/",
   component: LandingPage,
 });
 
 const organizerRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/organizer',
+  path: "/organizer",
   component: OrganizerDashboard,
 });
 
 const participantRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/participant',
+  path: "/participant",
   component: ParticipantDashboard,
 });
 
 const eventDetailsRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/event/$eventId',
+  path: "/event/$eventId",
   component: EventDetailsPage,
 });
 
 const joinTeamRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/join-team/$teamId',
+  path: "/join-team/$teamId",
   component: JoinTeamPage,
 });
 
@@ -73,7 +84,7 @@ const routeTree = rootRoute.addChildren([
 
 const router = createRouter({ routeTree });
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
   }

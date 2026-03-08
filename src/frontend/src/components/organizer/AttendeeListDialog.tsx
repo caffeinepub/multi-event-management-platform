@@ -1,10 +1,20 @@
-import { useState } from 'react';
-import { useGetEventRegistrations, useGetCheckedInParticipants, useGetUserProfile } from '../../hooks/useQueries';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Users, CheckCircle2, XCircle } from 'lucide-react';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { CheckCircle2, Users, XCircle } from "lucide-react";
+import { useState } from "react";
+import {
+  useGetCheckedInParticipants,
+  useGetEventRegistrations,
+  useGetUserProfile,
+} from "../../hooks/useQueries";
 
 export default function AttendeeListDialog({ eventId }: { eventId: string }) {
   const [open, setOpen] = useState(false);
@@ -26,7 +36,9 @@ export default function AttendeeListDialog({ eventId }: { eventId: string }) {
         <ScrollArea className="h-[400px] pr-4">
           <div className="space-y-2">
             {registrations.map((principal) => {
-              const isCheckedIn = checkedIn.some(p => p.toString() === principal.toString());
+              const isCheckedIn = checkedIn.some(
+                (p) => p.toString() === principal.toString(),
+              );
               return (
                 <AttendeeRow
                   key={principal.toString()}
@@ -42,13 +54,16 @@ export default function AttendeeListDialog({ eventId }: { eventId: string }) {
   );
 }
 
-function AttendeeRow({ principal, isCheckedIn }: { principal: any; isCheckedIn: boolean }) {
+function AttendeeRow({
+  principal,
+  isCheckedIn,
+}: { principal: any; isCheckedIn: boolean }) {
   const { data: profile } = useGetUserProfile(principal);
 
   return (
     <div className="flex items-center justify-between p-3 border rounded-lg">
       <div>
-        <div className="font-medium">{profile?.name || 'Loading...'}</div>
+        <div className="font-medium">{profile?.name || "Loading..."}</div>
         <div className="text-xs text-muted-foreground">{profile?.email}</div>
       </div>
       {isCheckedIn ? (

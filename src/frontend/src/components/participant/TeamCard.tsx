@@ -1,20 +1,24 @@
-import { useState } from 'react';
-import { useLeaveTeam } from '../../hooks/useQueries';
-import { useInternetIdentity } from '../../hooks/useInternetIdentity';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Users, Share2, LogOut } from 'lucide-react';
-import type { Team, Event } from '../../backend';
-import InviteLinkDialog from './InviteLinkDialog';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LogOut, Share2, Users } from "lucide-react";
+import { useState } from "react";
+import type { Event, Team } from "../../backend";
+import { useInternetIdentity } from "../../hooks/useInternetIdentity";
+import { useLeaveTeam } from "../../hooks/useQueries";
+import InviteLinkDialog from "./InviteLinkDialog";
 
-export default function TeamCard({ team, event }: { team: Team; event: Event }) {
+export default function TeamCard({
+  team,
+  event,
+}: { team: Team; event: Event }) {
   const { identity } = useInternetIdentity();
   const leaveMutation = useLeaveTeam();
-  const isCreator = identity && team.creator.toString() === identity.getPrincipal().toString();
+  const isCreator =
+    identity && team.creator.toString() === identity.getPrincipal().toString();
 
   const handleLeave = () => {
-    if (confirm('Are you sure you want to leave this team?')) {
+    if (confirm("Are you sure you want to leave this team?")) {
       leaveMutation.mutate(team.id);
     }
   };
@@ -26,7 +30,9 @@ export default function TeamCard({ team, event }: { team: Team; event: Event }) 
           <div>
             <CardTitle className="text-lg">{team.name}</CardTitle>
             {isCreator && (
-              <Badge variant="secondary" className="mt-1">Team Leader</Badge>
+              <Badge variant="secondary" className="mt-1">
+                Team Leader
+              </Badge>
             )}
           </div>
           <div className="flex gap-2">
@@ -47,7 +53,7 @@ export default function TeamCard({ team, event }: { team: Team; event: Event }) 
       <CardContent>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Users className="w-4 h-4" />
-          {team.members.length} member{team.members.length !== 1 ? 's' : ''}
+          {team.members.length} member{team.members.length !== 1 ? "s" : ""}
         </div>
       </CardContent>
     </Card>

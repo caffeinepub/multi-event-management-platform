@@ -1,11 +1,20 @@
-import { useState } from 'react';
-import { useDeclareWinner } from '../../hooks/useQueries';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Trophy } from 'lucide-react';
-import type { Team } from '../../backend';
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Trophy } from "lucide-react";
+import { useState } from "react";
+import type { Team } from "../../backend";
+import { useDeclareWinner } from "../../hooks/useQueries";
 
-export default function WinnerDeclarationDialog({ eventId, teams }: { eventId: string; teams: Team[] }) {
+export default function WinnerDeclarationDialog({
+  eventId,
+  teams,
+}: { eventId: string; teams: Team[] }) {
   const [open, setOpen] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
   const declareMutation = useDeclareWinner();
@@ -36,16 +45,18 @@ export default function WinnerDeclarationDialog({ eventId, teams }: { eventId: s
             {teams.map((team) => (
               <button
                 key={team.id}
+                type="button"
                 onClick={() => setSelectedTeam(team.id)}
                 className={`w-full p-4 rounded-lg border-2 text-left transition-colors ${
                   selectedTeam === team.id
-                    ? 'border-primary bg-primary/5'
-                    : 'border-border hover:border-primary/50'
+                    ? "border-primary bg-primary/5"
+                    : "border-border hover:border-primary/50"
                 }`}
               >
                 <div className="font-semibold">{team.name}</div>
                 <div className="text-sm text-muted-foreground">
-                  {team.members.length} member{team.members.length !== 1 ? 's' : ''}
+                  {team.members.length} member
+                  {team.members.length !== 1 ? "s" : ""}
                 </div>
               </button>
             ))}
@@ -58,7 +69,7 @@ export default function WinnerDeclarationDialog({ eventId, teams }: { eventId: s
               onClick={handleDeclare}
               disabled={!selectedTeam || declareMutation.isPending}
             >
-              {declareMutation.isPending ? 'Declaring...' : 'Declare Winner'}
+              {declareMutation.isPending ? "Declaring..." : "Declare Winner"}
             </Button>
           </div>
         </div>

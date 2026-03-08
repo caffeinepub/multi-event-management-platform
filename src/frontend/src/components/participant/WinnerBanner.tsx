@@ -1,9 +1,12 @@
-import { Card } from '@/components/ui/card';
-import { Trophy } from 'lucide-react';
-import type { Event, Team } from '../../backend';
+import { Card } from "@/components/ui/card";
+import { Trophy } from "lucide-react";
+import type { Event, Team } from "../../backend";
 
-export default function WinnerBanner({ event, teams }: { event: Event; teams: Team[] }) {
-  const winningTeam = teams.find(t => t.id === event.winningTeam);
+export default function WinnerBanner({
+  event,
+  teams,
+}: { event: Event; teams: Team[] }) {
+  const winningTeam = teams.find((t) => t.id === event.winningTeam);
 
   if (!winningTeam) return null;
 
@@ -16,10 +19,12 @@ export default function WinnerBanner({ event, teams }: { event: Event; teams: Te
           <Trophy className="w-8 h-8 text-primary" />
         </div>
         <p className="text-lg">
-          Congratulations to <span className="font-bold text-primary">{winningTeam.name}</span>!
+          Congratulations to{" "}
+          <span className="font-bold text-primary">{winningTeam.name}</span>!
         </p>
         <p className="text-sm text-muted-foreground mt-1">
-          {winningTeam.members.length} team member{winningTeam.members.length !== 1 ? 's' : ''}
+          {winningTeam.members.length} team member
+          {winningTeam.members.length !== 1 ? "s" : ""}
         </p>
       </div>
     </Card>

@@ -1,9 +1,9 @@
-import { useNavigate } from '@tanstack/react-router';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Calendar, MapPin, Users } from 'lucide-react';
-import type { Event } from '../../backend';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useNavigate } from "@tanstack/react-router";
+import { Calendar, MapPin, Users } from "lucide-react";
+import type { Event } from "../../backend";
 
 export default function EventGrid({ events }: { events: Event[] }) {
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ export default function EventGrid({ events }: { events: Event[] }) {
               <Button
                 onClick={() => navigate({ to: `/event/${event.id}` })}
                 className="w-full"
-                variant={isPast ? 'outline' : 'default'}
+                variant={isPast ? "outline" : "default"}
               >
                 View Details
               </Button>

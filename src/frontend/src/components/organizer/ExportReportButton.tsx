@@ -1,8 +1,13 @@
-import { useGetEventRegistrations, useGetEventTeams, useGetCheckedInParticipants, useGetEvent } from '../../hooks/useQueries';
-import { useActor } from '../../hooks/useActor';
-import { Button } from '@/components/ui/button';
-import { Download } from 'lucide-react';
-import { toast } from 'sonner';
+import { Button } from "@/components/ui/button";
+import { Download } from "lucide-react";
+import { toast } from "sonner";
+import { useActor } from "../../hooks/useActor";
+import {
+  useGetCheckedInParticipants,
+  useGetEvent,
+  useGetEventRegistrations,
+  useGetEventTeams,
+} from "../../hooks/useQueries";
 
 export default function ExportReportButton({ eventId }: { eventId: string }) {
   const { actor } = useActor();
@@ -15,47 +20,51 @@ export default function ExportReportButton({ eventId }: { eventId: string }) {
     if (!event || !actor) return;
 
     try {
-      const rows = [
-        ['Principal ID', 'Team', 'Check-in Status'],
-      ];
+      const rows = [["Principal ID", "Team", "Check-in Status"]];
 
       for (const principal of registrations) {
-        const team = teams.find(t => t.members.some(m => m.toString() === principal.toString()));
-        const isCheckedIn = checkedIn.some(p => p.toString() === principal.toString());
+        const team = teams.find((t) =>
+          t.members.some((m) => m.toString() === principal.toString()),
+        );
+        const isCheckedIn = checkedIn.some(
+          (p) => p.toString() === principal.toString(),
+        );
 
         // Fetch user profile for this principal
-        let userName = 'Unknown';
+        let userName = "Unknown";
         try {
           const profile = await actor.getUserProfile(principal);
           if (profile) {
             userName = profile.name;
           }
         } catch (error) {
-          console.error('Error fetching profile:', error);
+          console.error("Error fetching profile:", error);
         }
 
         rows.push([
           userName,
-          team?.name || 'No team',
-          isCheckedIn ? 'Checked In' : 'Not Checked In',
+          team?.name || "No team",
+          isCheckedIn ? "Checked In" : "Not Checked In",
         ]);
       }
 
-      const csv = rows.map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
-      const blob = new Blob([csv], { type: 'text/csv' });
+      const csv = rows
+        .map((row) => row.map((cell) => `"${cell}"`).join(","))
+        .join("\n");
+      const blob = new Blob([csv], { type: "text/csv" });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
-      a.download = `${event.title.replace(/\s+/g, '_')}_report.csv`;
+      a.download = `${event.title.replace(/\s+/g, "_")}_report.csv`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
 
-      toast.success('Report exported successfully');
+      toast.success("Report exported successfully");
     } catch (error) {
-      console.error('Export error:', error);
-      toast.error('Failed to export report');
+      console.error("Export error:", error);
+      toast.error("Failed to export report");
     }
   };
 

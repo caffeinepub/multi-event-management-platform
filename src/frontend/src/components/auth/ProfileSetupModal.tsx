@@ -1,14 +1,20 @@
-import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useSaveCallerUserProfile } from '../../hooks/useQueries';
-import { UserRole } from '../../backend';
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { UserRole } from "../../backend";
+import { useSaveCallerUserProfile } from "../../hooks/useQueries";
 
 export default function ProfileSetupModal() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [role, setRole] = useState<UserRole | null>(null);
   const saveProfile = useSaveCallerUserProfile();
 
@@ -25,9 +31,14 @@ export default function ProfileSetupModal() {
 
   return (
     <Dialog open={true}>
-      <DialogContent className="sm:max-w-md" onPointerDownOutside={(e) => e.preventDefault()}>
+      <DialogContent
+        className="sm:max-w-md"
+        onPointerDownOutside={(e) => e.preventDefault()}
+      >
         <DialogHeader>
-          <DialogTitle className="text-2xl">Welcome to Campus EventHub</DialogTitle>
+          <DialogTitle className="text-2xl">
+            Welcome to Campus EventHub
+          </DialogTitle>
           <DialogDescription>
             Please complete your profile to get started
           </DialogDescription>
@@ -62,8 +73,8 @@ export default function ProfileSetupModal() {
                 onClick={() => setRole(UserRole.organizer)}
                 className={`flex flex-col items-center gap-3 p-6 rounded-xl border-2 transition-all ${
                   role === UserRole.organizer
-                    ? 'border-primary bg-primary/5'
-                    : 'border-border hover:border-primary/50'
+                    ? "border-primary bg-primary/5"
+                    : "border-border hover:border-primary/50"
                 }`}
               >
                 <img
@@ -81,8 +92,8 @@ export default function ProfileSetupModal() {
                 onClick={() => setRole(UserRole.participant)}
                 className={`flex flex-col items-center gap-3 p-6 rounded-xl border-2 transition-all ${
                   role === UserRole.participant
-                    ? 'border-primary bg-primary/5'
-                    : 'border-border hover:border-primary/50'
+                    ? "border-primary bg-primary/5"
+                    : "border-border hover:border-primary/50"
                 }`}
               >
                 <img
@@ -102,7 +113,7 @@ export default function ProfileSetupModal() {
             className="w-full"
             disabled={!name || !email || !role || saveProfile.isPending}
           >
-            {saveProfile.isPending ? 'Creating Profile...' : 'Complete Setup'}
+            {saveProfile.isPending ? "Creating Profile..." : "Complete Setup"}
           </Button>
         </form>
       </DialogContent>

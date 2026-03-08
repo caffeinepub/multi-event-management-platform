@@ -1,20 +1,21 @@
-import { useGetCallerUserProfile, useGetAllEvents } from '../hooks/useQueries';
-import { useNavigate } from '@tanstack/react-router';
-import { UserRole } from '../backend';
-import { useEffect, useState } from 'react';
-import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
-import EventGrid from '../components/participant/EventGrid';
+import { Input } from "@/components/ui/input";
+import { useNavigate } from "@tanstack/react-router";
+import { Search } from "lucide-react";
+import { useEffect, useState } from "react";
+import { UserRole } from "../backend";
+import EventGrid from "../components/participant/EventGrid";
+import { useGetAllEvents, useGetCallerUserProfile } from "../hooks/useQueries";
 
 export default function ParticipantDashboard() {
-  const { data: userProfile, isLoading: profileLoading } = useGetCallerUserProfile();
+  const { data: userProfile, isLoading: profileLoading } =
+    useGetCallerUserProfile();
   const { data: events = [], isLoading: eventsLoading } = useGetAllEvents();
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (!profileLoading && userProfile?.role !== UserRole.participant) {
-      navigate({ to: '/' });
+      navigate({ to: "/" });
     }
   }, [userProfile, profileLoading, navigate]);
 
@@ -26,9 +27,10 @@ export default function ParticipantDashboard() {
     );
   }
 
-  const filteredEvents = events.filter(event =>
-    event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    event.description.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredEvents = events.filter(
+    (event) =>
+      event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      event.description.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (

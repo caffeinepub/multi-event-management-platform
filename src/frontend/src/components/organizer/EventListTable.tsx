@@ -1,10 +1,3 @@
-import { useNavigate } from '@tanstack/react-router';
-import { useDeleteEvent } from '../../hooks/useQueries';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Eye, Trash2 } from 'lucide-react';
-import type { Event } from '../../backend';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,7 +8,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+} from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { useNavigate } from "@tanstack/react-router";
+import { Eye, Trash2 } from "lucide-react";
+import type { Event } from "../../backend";
+import { useDeleteEvent } from "../../hooks/useQueries";
 
 export default function EventListTable({ events }: { events: Event[] }) {
   const navigate = useNavigate();
@@ -53,7 +60,9 @@ export default function EventListTable({ events }: { events: Event[] }) {
             return (
               <TableRow key={event.id}>
                 <TableCell className="font-medium">{event.title}</TableCell>
-                <TableCell>{new Date(event.dateTime).toLocaleString()}</TableCell>
+                <TableCell>
+                  {new Date(event.dateTime).toLocaleString()}
+                </TableCell>
                 <TableCell>{event.venue}</TableCell>
                 <TableCell>{event.registeredParticipants.length}</TableCell>
                 <TableCell>
@@ -83,7 +92,8 @@ export default function EventListTable({ events }: { events: Event[] }) {
                       <AlertDialogHeader>
                         <AlertDialogTitle>Delete Event</AlertDialogTitle>
                         <AlertDialogDescription>
-                          Are you sure you want to delete "{event.title}"? This action cannot be undone.
+                          Are you sure you want to delete "{event.title}"? This
+                          action cannot be undone.
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
